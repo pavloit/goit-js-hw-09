@@ -5,9 +5,6 @@ function getRandomHexColor() {
 const bodyEl = document.querySelector('body');
 const startBtn = document.querySelector("button[data-start]");
 const stopBtn = document.querySelector("button[data-stop]");
-console.log('start: ', startBtn);
-console.log('stop: ', stopBtn);
-console.log('body: ', bodyEl);
 startBtn.addEventListener('click', onClickStart)
 stopBtn.addEventListener('click', onClickStop)
 let timerId = 1;
@@ -23,7 +20,7 @@ function onClickStop() {
     }
 
 function changeBodyColor() {
-    bodyEl.style.backgroundColor= getRandomHexColor();
+    bodyEl.style.backgroundColor = getRandomHexColor();
 }
 
 
