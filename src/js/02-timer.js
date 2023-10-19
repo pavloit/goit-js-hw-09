@@ -33,7 +33,7 @@ const options = {
     if (timerId > 0) {
      clearInterval(timerId); 
     }
-    Notify.success('Date in future successfully selected')
+    Notify.success('Date in the future successfully selected')
     selectors.startBtn.removeAttribute("disabled");
     refreshTimer();
   }
