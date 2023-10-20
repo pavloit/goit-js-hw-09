@@ -16,10 +16,6 @@ let remainTime = {};
 let timerId = 0;
 let chosenTime = 0;
 
-function disableStartBtn() {
-  selectors.startBtn.setAttribute('disabled', 'true');
-} 
-
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -29,22 +25,44 @@ const options = {
     if (selectedDates[0] <= Date.now()) {
       return onDateInPast();
     }
-    chosenTime = selectedDates[0];
+    enableStartBtn(selectedDates[0]);
+  }
+}
+
+function disableStartBtn() {
+  selectors.startBtn.setAttribute('disabled', 'true');
+}
+
+function disableInput() {
+  selectors.input.setAttribute('disabled', 'true');
+}
+
+function enableStartBtn(selDate) {
+  selectors.startBtn.removeAttribute('disabled');
+  chosenTime = selDate;
     if (timerId > 0) {
      clearInterval(timerId); 
     }
     Notify.success('Date in the future successfully selected')
-    selectors.startBtn.removeAttribute("disabled");
     refreshTimer();
   }
-};
+
+function enableInput() {
+  selectors.input.removeAttribute('disabled');
+}
+
+disableStartBtn();
+
+
+
 
 const selectedDate = flatpickr(selectors.input, options)
-
+console.dir(selectedDate);
 selectors.startBtn.addEventListener('click', onClickStart)
 
 function onClickStart() {
   disableStartBtn();
+  disableInput();
   if (chosenTime <= Date.now()) {
     clearHtml();
     Notify.info('The timer is already out of date..')
@@ -74,6 +92,7 @@ function refreshTimer() {
     clearInterval(timerId);
     timerId = 0;
     clearHtml();
+    enableInput();
     return Notify.success('Timer succesfully finished')
   }
 
